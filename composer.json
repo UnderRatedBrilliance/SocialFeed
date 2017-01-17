@@ -1,0 +1,26 @@
+{
+    "name": "urb/social-feed",
+    "type": "library",
+    "homepage": "https://github.com/UnderRatedBrilliance/SocialFeed",
+    "authors": [
+        {
+            "name": "gabarba",
+            "email": "george@underratedbrilliance.com",
+            "homepage": "https://github.com/UnderRatedBrilliance/SocialFeed"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^5.4|^7.0",
+        "facebook/graph-sdk": "^5.4",
+        "webmozart/key-value-store": "^1.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Urb\\SocialFeed\\": "src/"
+        }
+    }
+}
