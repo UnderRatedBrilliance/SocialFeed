@@ -17,12 +17,48 @@
  */
 namespace Urb\SocialFeed\Transformer\Facebook\Post;
 
-use Urb\SocialFeed\Model\Post;
-use Urb\SocialFeed\Transformer\Transformer;
+use DateTime;
+use Urb\SocialFeed\Model\Post as PostModel;
+use Urb\SocialFeed\Transformer\Facebook\Post;
 use Urb\SocialFeed\Transformer\PostTransformerInterface;
 
-class Video extends Transformer implements PostTransformerInterface
+class Video extends Post implements PostTransformerInterface
 {
 
+    protected $name = 'FACEBOOK_POST_TYPE_VIDEO_TRANSFORMER';
+
+    protected $type = 'facebook_post_video';
+    /**
+     *
+     * @param array|object $data
+     * @return PostModel
+     */
+    public function transform($data)
+    {
+        if(!$this->validate($data))
+        {
+            throw new \InvalidArgumentException($this->getName().'- is missing required fields');
+        }
+
+        return new PostModel(
+            $data['id'], // External Id
+            $this->getFeedId($data), //Feed Id
+            $data['name'], // Title
+            $data['message'], // Post Message
+            $data['permalink_url'], // Perma Link
+            $this->getType($data), // Post Type
+            $data, // Meta Info
+            $this->getAttachments($data), //Attachments
+            new DateTime($data['created_time']),
+            new DateTime($data['updated_time'])
+
+        );
+
+    }
+
+    public function getType($data)
+    {
+        return $this->type;
+    }
 
 }
